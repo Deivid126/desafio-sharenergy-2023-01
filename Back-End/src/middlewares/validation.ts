@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-export default function validantion(res:Response,req:Request, netx:NextFunction){
+export default function validantion(req:Request,res:Response, netx:NextFunction){
 
     const {nome, email,telefone,endereco,senha,cpf } = req.body;
 
