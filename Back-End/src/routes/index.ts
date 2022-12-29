@@ -1,6 +1,6 @@
 import { Router } from "express";
-import Controller from "./User"
-import Login from "./Login"
+import Controller from "../controller/User"
+import Login from "../controller/Login"
 import authenticaded from "../middlewares/auth";
 
 const routes = Router();
