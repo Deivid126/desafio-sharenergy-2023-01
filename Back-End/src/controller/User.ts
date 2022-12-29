@@ -1,17 +1,20 @@
 import { Request, Response } from "express";
 import User from "../models/User";
+import bcrypt from 'bcrypt'
 const Controller = {
    
    
     async create(req:Request, res:Response){
         const {nome, email,telefone,endereco,senha,cpf } = req.body;
 
+        const senhahash = await bcrypt.hash(senha,8);
+
         const newUser = await User.create({
             nome,
             email,
             telefone,
             endereco,
-            senha,
+            senha: senhahash,
             cpf
         });
 
