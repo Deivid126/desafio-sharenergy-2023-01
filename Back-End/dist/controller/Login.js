@@ -12,14 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
 const User_1 = __importDefault(require("../models/User"));
 const bcrypt_1 = require("bcrypt");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const Login = {
-    login(res, req) {
+    login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { nome, senha } = req.body;
+            const { senha, nome } = req.body;
             const user = yield User_1.default.findOne({ nome });
             if (!user) {
                 return res.status(400).json({ msg: "Usúario não encontrado" });
@@ -32,7 +31,7 @@ const Login = {
                 subject: String(user.id),
                 expiresIn: "1d"
             });
-            return express_1.response.json({ user, token });
+            return res.json({ user, token });
         });
     }
 };

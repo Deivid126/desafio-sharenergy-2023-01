@@ -4,8 +4,9 @@ import { compare } from 'bcrypt';
 import {sign} from 'jsonwebtoken';
 
 const Login = {
-    async login(res:Response, req:Request) {
-        const {nome, senha} = req.body;
+    async login(req:Request, res:Response) {
+
+        const {senha,nome} = req.body;
 
         const user = await User.findOne({nome});
 
@@ -24,7 +25,7 @@ const Login = {
             expiresIn:"1d"
         });
 
-        return response.json({user,token});
+        return res.json({user,token});
 
     }
 }
