@@ -15,10 +15,21 @@ export const Login = () => {
     const senhaInput = (event:ChangeEvent<HTMLInputElement>) => {
         setSenha(event.target.value);
     }
+    let remenber:boolean = false;
 
+    const check = async () => {
+        const valor = document.getElementById('check');
+        if(valor){
+            return remenber = true;
+        }
+        else {
+            return remenber;
+        }
+    }
     const login = async () => {
+        check();
         if(nome && senha){
-            const isLogged = await auth.signin(nome,senha);
+            const isLogged = await auth.signin(nome,senha,remenber);
             if(isLogged){
                 navigate('/');
             } else {
@@ -38,6 +49,9 @@ export const Login = () => {
             value={senha}
             onChange={senhaInput}
             placeholder="Digite sua senha" />
+            <input type="checkbox"
+            id="check"
+            />
             <button onClick={login}>Login</button>
         </div>
     )

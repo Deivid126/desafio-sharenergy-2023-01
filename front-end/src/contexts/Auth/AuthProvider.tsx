@@ -5,7 +5,7 @@ import { AuthContext } from './AuthContext';
 
 export const AuthProvider = ({children}:{children:JSX.Element}) => {
 
-    const [user, serUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const api = useApi();
 
     useEffect(() => {
@@ -14,18 +14,21 @@ export const AuthProvider = ({children}:{children:JSX.Element}) => {
             if(storageData){
                 const data = await api.validateToken(storageData);
                 if(data.user){
-                    serUser(data.user);
+                    setUser(data.user);
                 }
             }
         }
         validateToken();
     },[api]);
 
-    const signin = async (nome:string, senha:string) => {
-        const data = await api.signin(nome,senha);
+    const signin = async (nome:string, senha:string,remenber:boolean) => {
+        const data = await api.signin(nome,senha,true);
         if(data.user && data.token){
-            serUser(data.user);
-            setToken(data.token);
+            setUser(data.user);
+            if(remenber){
+                setToken(data.token);
+                return true; 
+            }
             return true;
         }
         return false;
@@ -33,7 +36,7 @@ export const AuthProvider = ({children}:{children:JSX.Element}) => {
 
     const signout = async () => 
     {
-        serUser(null);
+        setUser(null);
         setToken('');
         await api.logout;
     }
