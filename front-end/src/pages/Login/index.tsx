@@ -40,6 +40,8 @@ export const Login = () => {
 
     return (
         <div>
+            <div className="container">
+            <div className="container-center">
             <h2> Página de Login</h2>
             <input type="text"
             value={nome}
@@ -49,10 +51,15 @@ export const Login = () => {
             value={senha}
             onChange={senhaInput}
             placeholder="Digite sua senha" />
+            <div className="check">
             <input type="checkbox"
             id="check"
             />
+            <label htmlFor="check"> Remenber me</label>
+            </div>
             <button onClick={login}>Login</button>
+            </div>
+            </div>
         </div>
     )
 }
